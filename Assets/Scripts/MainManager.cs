@@ -38,11 +38,7 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        // Load player's name
-        if (DataManager.Instance != null)
-        {
-            BestScoreText.text = $"Best Score: {DataManager.Instance.PlayerName} : 0";
-        }
+        UpdateBestScoreUI();
     }
 
     private void Update()
@@ -79,5 +75,16 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        bool isUpdate = DataManager.Instance.CheckBestScore(m_Points);
+        if (isUpdate)
+        {
+            UpdateBestScoreUI();
+        }
+    }
+
+    void UpdateBestScoreUI()
+    {
+        BestScoreText.text = $"Best Score : {DataManager.Instance.BestScorePlayerName} : {DataManager.Instance.BestScore}";
     }
 }

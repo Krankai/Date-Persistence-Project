@@ -10,13 +10,23 @@ using UnityEditor;
 
 public class StartMenuHandler : MonoBehaviour
 {
+    public Text BestScoreText;
+
     public InputField PlayerNameInput;
 
-    public void OnNameChanged(string name)
+    private void Start()
+    {
+        DataManager.Instance.LoadBestScoreData();
+
+        //bestScoreText.text = string.Format("Best Score : {0} : {1}", DataManager.Instance.BestScorePlayerName, DataManager.Instance.BestScore);
+        BestScoreText.text = $"Best Score : {DataManager.Instance.BestScorePlayerName} : {DataManager.Instance.BestScore}";
+    }
+
+    public void OnNameChanged()
     {
         if (DataManager.Instance != null)
         {
-            DataManager.Instance.PlayerName = PlayerNameInput.text;
+            DataManager.Instance.CurrentPlayerName = PlayerNameInput.text;
         }
     }
 
